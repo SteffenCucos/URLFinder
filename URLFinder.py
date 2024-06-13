@@ -12,9 +12,10 @@ def find_urls(input_string):
     
     # Find all matches in the input string
     urls = re.findall(pattern, input_string)
+    # print(urls)
     
     # Construct the full URLs from the matches
-    full_urls = ["".join(url) for url in urls]
+    full_urls = [url[0] +"://" + "".join(url[1:]) for url in urls]
     
     # Sort the URLs alphabetically
     sorted_urls = sorted(full_urls)
@@ -27,7 +28,7 @@ def fetch_page_content(url):
         response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
         return response.text
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching the URL: {e}")
+        # print(f"Error fetching the URL: {e}")
         return ""
 
 def is_file(url):
